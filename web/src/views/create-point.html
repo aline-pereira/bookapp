@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-create-point" %}
+
+{% block title %}
+    <title>Criar um ponto de coleta</title>
+{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="style/create-point.css">
+    <link rel="stylesheet" href="style/modal.css">
+{% endblock styles %}
+
+<!--Page home-->
+{% block content %}
+    {% include "partials/page-header.html" %}
+
+    <form action="/savepoint" method="POST">
+        <h1>Cadastro do ponto de doação</h1>
+
+        <fieldset>
+            <legend>
+                <h2>Dados da entidades</h2>
+            </legend>
+
+            <div class="field-group">
+                <div class="field">
+                    <label for="name">Nome da entidade</label>
+                    <input type="text" name="name" required="required">
+                </div>
+
+                <div class="field">
+                    <label for="image">Imagem da entidade</label>
+                    <input type="url" name="image" required="required" placeholder="http://">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field">
+                    <label for="adress">Endereço</label>
+                    <input type="text" name="adress" required="required">
+                </div>
+
+                <div class="field">
+                    <label for="adress2">Número</label>
+                    <input type="text" name="adress2" required="required">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field">
+                    <label for="state">Estado</label>
+                    <select name="uf" id="" required="required">
+                        <option value="">Selecione o Estado</option>
+                    </select>
+
+                    <input type="hidden" name="state">
+                </div>
+
+                <div class="field">
+                    <label for="city">Cidade</label>
+                    <select name="city" disabled="disabled" required="required">
+                        <option value="">Selecione a Cidade</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <h2>Itens de doação</h2>
+                <span>Selecione um ou mais itens abaixo</span>
+            </legend>
+            <div class="items-grid">
+                <li data-id="Livros">
+                    <img src="assets/livro.svg" alt="livros">
+                    <span>Livros</span>
+                </li>
+
+                <li data-id="Revistas">
+                    <img src="assets/revista.svg" alt="Revistas">
+                    <span>Revistas</span>
+                </li>
+
+                <li data-id="HQs">
+                    <img src="assets/hqs.svg" alt="Papéis e Papelão">
+                    <span>HQs</span>
+                </li>
+
+                <input type="hidden" name="items">
+
+            </div>
+        </fieldset>
+
+        <button type="submit">
+            Cadastrar ponto de doação</button>
+    </form>
+
+{% endblock content %}
+
+    {% block modal %}
+        {% if saved %}
+            {%include "partials/point-created.html"%}
+        {% endif %}
+    {% endblock modal %}
+
+{% block scripts %}
+    <script src="./script/create-point.js"></script>
+{% endblock scripts %}
